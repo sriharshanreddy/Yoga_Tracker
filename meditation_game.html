@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation Games | YogaTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f3f4f6;
+        }
+        .sidebar {
+            min-height: calc(100vh - 4rem);
+        }
+        .progress-bar {
+            transition: width 0.6s ease;
+        }
+        .games-sidebar {
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+        .ball {
+            transition: all 0.4s ease;
+        }
+        .ball-number {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-spa text-2xl text-green-500"></i>
+                <h1 class="text-xl text-gray-800 font-bold">Yoga<span class="text-blue-500">Track</span></h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="welcome-msg" class="text-gray-900 font-bold text-xl">Welcome</span>
+                <a href="dashboard.html" class=" text-blue-600 text-xl font-bold px-4 py-2 rounded hover:text-blue-200 hover:underline">
+                   </i> Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex">
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <h2 class="text-2xl font-bold mb-6">Meditation Games</h2>
+            <p class="text-gray-600 mb-8">Enhance your focus and mindfulness with these interactive games designed to improve your meditation practice.</p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Game 1: Ball Tracking -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-500 mr-4">
+                            <i class="fas fa-bullseye text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Ball Tracking Focus</h3>
+                            <p class="text-gray-500">Improve your concentration</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Follow the balls as they shuffle. When they turn blue.</p>
+                    <div id="ball-game-container">
+                        <div class="relative flex justify-between mb-6 h-20">
+                            <div class="ball absolute w-12 h-12 rounded-full bg-red-500 flex items-center justify-center" 
+                                 style="left: 0;" data-number="1">
+                                <span class="ball-number text-white font-bold">1</span>
+                            </div>
+                            <div class="ball absolute w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center" 
+                                 style="left: 25%;" data-number="2">
+                                <span class="ball-number text-white font-bold">2</span>
+                            </div>
+                            <div class="ball absolute w-12 h-12 rounded-full bg-green-500 flex items-center justify-center" 
+                                 style="left: 50%;" data-number="3">
+                                <span class="ball-number text-white font-bold">3</span>
+                            </div>
+                            <div class="ball absolute w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center" 
+                                 style="left: 75%;" data-number="4">
+                                <span class="ball-number text-white font-bold">4</span>
+                            </div>
+                        </div>
+                        <div id="ball-game-result" class="text-center mb-2"></div>
+                        <div class="text-center">
+                            <button id="start-ball-game" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Start Game</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 2: Mindfulness Q&A -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 rounded-full bg-green-100 text-green-500 mr-4">
+                            <i class="fas fa-question text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Mindfulness Q&A</h3>
+                            <p class="text-gray-500">Practice self-reflection</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Answer thoughtful questions to deepen your mindfulness practice.</p>
+                    <div id="qa-game-container">
+                        <div id="qa-question" class="font-medium mb-2 text-lg"></div>
+                        <textarea id="qa-answer" class="w-full border rounded p-2 mb-2 h-24" placeholder="Your answer..."></textarea>
+                        <div id="qa-feedback" class="mb-2 text-sm text-gray-600"></div>
+                        <button id="qa-submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Submit</button>
+                        <button id="qa-next" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden ml-2">Next Question</button>
+                    </div>
+                </div>
+                
+                <!-- Game 3: Breathing Circle -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 rounded-full bg-purple-100 text-purple-500 mr-4">
+                            <i class="fas fa-wind text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Breathing Circle</h3>
+                            <p class="text-gray-500">Guided breathing exercise</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Follow the circle's rhythm to practice deep breathing techniques.</p>
+                    <div id="breath-game-container" class="text-center">
+                        <div id="breath-circle" class="w-24 h-24 rounded-full bg-purple-200 mx-auto my-4 flex items-center justify-center transition-all duration-1000">
+                            <span id="breath-text" class="font-bold">Ready</span>
+                        </div>
+                        <div id="breath-timer" class="font-medium mb-2">Time: 0:00</div>
+                        <div id="breath-instruction" class="text-sm mb-2">Click start to begin breathing exercise</div>
+                        <button id="start-breath-game" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">Start Breathing</button>
+                        <button id="stop-breath-game" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 hidden ml-2">Stop</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userData = JSON.parse(localStorage.getItem("user"));
+            const welcomeMsg = document.getElementById("welcome-msg");
+        
+            if (userData && userData.name && welcomeMsg) {
+                welcomeMsg.textContent = `Welcome, ${userData.name}`;
+            }
+        });
+
+        // Game 1: Ball Tracking
+        const balls = document.querySelectorAll('.ball');
+        const ballNumbers = document.querySelectorAll('.ball-number');
+        const startBallBtn = document.getElementById('start-ball-game');
+        const ballResult = document.getElementById('ball-game-result');
+        
+        const originalColors = {
+            1: 'bg-red-500',
+            2: 'bg-blue-500',
+            3: 'bg-green-500',
+            4: 'bg-yellow-500'
+        };
+        
+        let ballInterval;
+        let currentSpeed = 600;
+        let targetBall;
+        let isShuffling = false;
+        
+        startBallBtn.addEventListener('click', function() {
+            if (isShuffling) return;
+            startBallGame();
+        });
+        
+        function startBallGame() {
+            isShuffling = true;
+            startBallBtn.disabled = true;
+            ballResult.textContent = "Watch carefully and remember positions...";
+            
+            // Reset all balls to original colors
+            balls.forEach(ball => {
+                const num = ball.getAttribute('data-number');
+                ball.className = `ball absolute w-12 h-12 rounded-full ${originalColors[num]} flex items-center justify-center`;
+                ball.style.opacity = '1';
+                ball.style.transform = 'translateX(0) scale(1)';
+                ball.style.pointerEvents = 'none';
+                ballNumbers[num-1].style.opacity = '1';
+            });
+            
+            // Position balls evenly
+            balls.forEach((ball, index) => {
+                ball.style.left = `${index * 25}%`;
+            });
+            
+            // Hide numbers after 1 second
+            setTimeout(() => {
+                ballNumbers.forEach(num => num.style.opacity = '0');
+            }, 1000);
+            
+            let timeLeft = 30;
+            const countdown = setInterval(() => {
+                timeLeft--;
+                
+                // Increase speed every 5 seconds
+                if (timeLeft % 5 === 0 && timeLeft < 30) {
+                    currentSpeed = Math.max(200, currentSpeed - 100);
+                    clearInterval(ballInterval);
+                    shuffleBalls();
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    clearInterval(ballInterval);
+                    endShuffling();
+                }
+            }, 1000);
+            
+            shuffleBalls();
+            
+            function shuffleBalls() {
+                ballInterval = setInterval(() => {
+                    const positions = [0, 25, 50, 75];
+                    const shuffledPositions = [...positions].sort(() => Math.random() - 0.5);
+                    
+                    balls.forEach((ball, index) => {
+                        const newPos = shuffledPositions[index];
+                        ball.style.transform = `translateX(${newPos - parseFloat(ball.style.left)}%) scale(1.1)`;
+                        
+                        setTimeout(() => {
+                            ball.style.left = `${newPos}%`;
+                            ball.style.transform = 'translateX(0) scale(1)';
+                        }, 400);
+                    });
+                }, currentSpeed);
+            }
+            
+            function endShuffling() {
+                isShuffling = false;
+                
+                // Store reference to ball #3
+                targetBall = Array.from(balls).find(ball => ball.getAttribute('data-number') === '3');
+                
+                // Change all balls to blue when time to select
+                balls.forEach(ball => {
+                    ball.className = 'ball absolute w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center';
+                    ball.style.pointerEvents = 'auto';
+                    ball.addEventListener('click', handleBallClick);
+                });
+                
+                ballResult.textContent = "Click on the ball 3";
+                startBallBtn.disabled = false;
+                startBallBtn.textContent = "Play Again";
+            }
+        }
+        
+        function handleBallClick(e) {
+            const selectedBall = e.currentTarget;
+            const isCorrect = selectedBall === targetBall;
+            
+            // Show all numbers
+            ballNumbers.forEach(num => num.style.opacity = '1');
+            
+            // Disable further clicks
+            balls.forEach(ball => {
+                ball.style.pointerEvents = 'none';
+                ball.removeEventListener('click', handleBallClick);
+            });
+            
+            // Restore original colors to show result
+            balls.forEach(ball => {
+                const num = ball.getAttribute('data-number');
+                ball.className = `ball absolute w-12 h-12 rounded-full ${originalColors[num]} flex items-center justify-center`;
+            });
+            
+            // Highlight selection
+            selectedBall.style.transform = 'scale(1.2)';
+            selectedBall.style.zIndex = '10';
+            
+            if (isCorrect) {
+                ballResult.textContent = "Perfect! Your memory is excellent! 🎉";
+                ballResult.className = "text-center mb-2 text-green-600 font-bold";
+            } else {
+                ballResult.textContent = "Oops! You chose the wrong one. Try again!";
+                ballResult.className = "text-center mb-2 text-red-600 font-bold";
+                targetBall.style.boxShadow = "0 0 0 4px #10B981";
+            }
+        }
+
+        // Game 2: Mindfulness Q&A
+        const questions = [
+            {
+                question: "What are three things you're grateful for today?",
+                tips: "Think about small joys, people in your life, or simple comforts."
+            },
+            {
+                question: "Describe how you're feeling right now in detail.",
+                tips: "Consider physical sensations, emotions, and thoughts."
+            },
+            {
+                question: "What's one positive interaction you had recently?",
+                tips: "Recall a conversation or moment that made you smile."
+            },
+            {
+                question: "What's something you're looking forward to?",
+                tips: "It could be as simple as your next meal or a future event."
+            }
+        ];
+        
+        let currentQuestionIndex = 0;
+        
+        function loadNextQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                currentQuestionIndex = 0;
+                document.getElementById('qa-game-container').innerHTML = `
+                    <div class="text-center py-4">
+                        <p class="font-medium mb-2">Great job completing the mindfulness questions!</p>
+                        <p class="text-sm text-gray-600">Reflect on your answers to deepen your awareness.</p>
+                        <button id="qa-restart" class="mt-3 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Start Again</button>
+                    </div>
+                `;
+                document.getElementById('qa-restart').addEventListener('click', function() {
+                    location.reload();
+                });
+                return;
+            }
+            
+            const question = questions[currentQuestionIndex];
+            document.getElementById('qa-question').textContent = question.question;
+            document.getElementById('qa-answer').value = '';
+            document.getElementById('qa-feedback').textContent = question.tips;
+            document.getElementById('qa-feedback').className = 'mb-2 text-sm text-gray-600';
+            document.getElementById('qa-next').classList.add('hidden');
+            document.getElementById('qa-submit').classList.remove('hidden');
+        }
+        
+        document.getElementById('qa-submit').addEventListener('click', function() {
+            const answer = document.getElementById('qa-answer').value.trim();
+            if (answer) {
+                document.getElementById('qa-feedback').textContent = 'Thank you for your thoughtful response. Reflect on this.';
+                document.getElementById('qa-feedback').className = 'mb-2 text-sm text-green-600';
+                document.getElementById('qa-next').classList.remove('hidden');
+                this.classList.add('hidden');
+            } else {
+                document.getElementById('qa-feedback').textContent = 'Please write something before submitting.';
+                document.getElementById('qa-feedback').className = 'mb-2 text-sm text-red-600';
+            }
+        });
+        
+        document.getElementById('qa-next').addEventListener('click', function() {
+            currentQuestionIndex++;
+            loadNextQuestion();
+        });
+
+        // Load first question
+        loadNextQuestion();
+
+        // Game 3: Breathing Circle
+        let breathInterval;
+        let breathCycle = 0;
+        let isInhaling = true;
+        let seconds = 0;
+        let timerInterval;
+        
+        document.getElementById('start-breath-game').addEventListener('click', function() {
+            this.classList.add('hidden');
+            document.getElementById('stop-breath-game').classList.remove('hidden');
+            
+            // Start with inhale
+            document.getElementById('breath-text').textContent = 'Breathe In';
+            document.getElementById('breath-circle').classList.remove('w-24', 'h-24');
+            document.getElementById('breath-circle').classList.add('w-32', 'h-32', 'bg-purple-300');
+            document.getElementById('breath-instruction').textContent = 'Breathe in as the circle expands';
+            
+            // Start timer
+            seconds = 0;
+            updateTimer();
+            timerInterval = setInterval(() => {
+                seconds++;
+                updateTimer();
+            }, 1000);
+            
+            // Breathing cycle
+            breathInterval = setInterval(() => {
+                if (isInhaling) {
+                    // Switch to exhale
+                    isInhaling = false;
+                    document.getElementById('breath-text').textContent = 'Breathe Out';
+                    document.getElementById('breath-circle').classList.remove('w-32', 'h-32', 'bg-purple-300');
+                    document.getElementById('breath-circle').classList.add('w-24', 'h-24', 'bg-purple-200');
+                    document.getElementById('breath-instruction').textContent = 'Breathe out as the circle contracts';
+                } else {
+                    // Switch to inhale
+                    isInhaling = true;
+                    breathCycle++;
+                    document.getElementById('breath-text').textContent = 'Breathe In';
+                    document.getElementById('breath-circle').classList.remove('w-24', 'h-24', 'bg-purple-200');
+                    document.getElementById('breath-circle').classList.add('w-32', 'h-32', 'bg-purple-300');
+                    document.getElementById('breath-instruction').textContent = 'Breathe in as the circle expands';
+                }
+            }, 4000); // 4 seconds per half cycle (inhale or exhale)
+        });
+        
+        document.getElementById('stop-breath-game').addEventListener('click', function() {
+            clearInterval(breathInterval);
+            clearInterval(timerInterval);
+            document.getElementById('breath-text').textContent = 'Completed!';
+            document.getElementById('breath-instruction').textContent = `You completed ${breathCycle} full breath cycles in ${formatTime(seconds)}`;
+            document.getElementById('start-breath-game').classList.remove('hidden');
+            this.classList.add('hidden');
+        });
+        
+        function updateTimer() {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById('breath-timer').textContent = `Time: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        function formatTime(totalSeconds) {
+            const mins = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+            return `${mins}m ${secs}s`;
+        }
+    </script>
+</body>
+</html>
