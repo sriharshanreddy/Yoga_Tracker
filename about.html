@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - YogaTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-link {
+      position: relative;
+      color: #4b5563;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: #111827;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Floating decorative elements -->
+  <div class="fixed top-20 left-10 w-16 h-16 rounded-full bg-blue-100 opacity-20 floating" style="animation-delay: 0s;"></div>
+  <div class="fixed bottom-1/4 right-20 w-24 h-24 rounded-full bg-green-100 opacity-20 floating" style="animation-delay: 1s;"></div>
+  <div class="fixed top-1/3 right-1/4 w-20 h-20 rounded-full bg-purple-100 opacity-20 floating" style="animation-delay: 2s;"></div>
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="flex items-center">
+        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm mr-3">
+          <i class="fas fa-spa text-xl text-green-500"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-800">Yoga<span class="text-blue-500">Track</span></h1>
+      </a>
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="about.html" class="nav-link active">About</a>
+       
+        <a href="login.html" class="bg-gradient-to-r from-blue-500 to-green-500 text-white px-5 py-2 rounded-full text-sm font-medium hover:shadow-lg transition-all">
+          <i class="fas fa-sign-in-alt mr-2"></i> Login
+        </a>
+      </nav>
+      <button class="md:hidden text-gray-700 focus:outline-none" id="menu-btn">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-white rounded-lg mt-2 py-2 absolute right-5 w-56 z-50 shadow-xl" id="mobile-menu">
+      <a href="index.html" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100">
+        <i class="fas fa-home mr-3 text-blue-400"></i> Home
+      </a>
+      <a href="services.html" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100">
+        <i class="fas fa-concierge-bell mr-3 text-green-400"></i> Services
+      </a>
+      <a href="about.html" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100">
+        <i class="fas fa-info-circle mr-3 text-purple-400"></i> About
+      </a>
+     
+      <div class="px-4 py-3 border-t border-gray-100 mt-2">
+        <a href="login.html" class="block w-full text-center bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors">
+          <i class="fas fa-sign-in-alt mr-2"></i> Login
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-24 bg-gradient-to-r from-blue-100 to-green-100 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover;"></div>
+    <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
+      <h2 class="text-5xl font-bold mb-6 text-gray-800">About <span class="gradient-text">YogaTrack</span></h2>
+      <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+        Your personalized wellness companion built for real-life transformation through yoga and mindfulness.
+      </p>
+    </div>
+  </section>
+
+  <!-- Introduction -->
+  <section class="py-20">
+    <div class="container mx-auto px-6 max-w-5xl" data-aos="fade-up">
+      <h3 class="text-3xl font-bold mb-6">What is YogaTrack?</h3>
+      <p class="text-lg text-gray-600 leading-relaxed mb-6">
+        YogaTrack is a holistic digital platform designed to empower individuals through personalized yoga practices, guided meditations, wellness tracking, and expert coaching. Unlike generic workout apps, YogaTrack evolves with your journey — adapting to your unique pace, goals, and lifestyle. 
+      </p>
+      <p class="text-lg text-gray-600 leading-relaxed">
+        Whether you're just starting or already on your path to self-care, YogaTrack helps you build a sustainable, healthy habit that becomes part of your life, not just a routine.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission and Vision -->
+  <section class="bg-white py-20">
+    <div class="container mx-auto px-6 max-w-5xl grid md:grid-cols-2 gap-12">
+      <div data-aos="fade-right">
+        <div class="bg-blue-50 p-6 rounded-xl mb-6 inline-block">
+          <i class="fas fa-bullseye text-3xl text-blue-500"></i>
+        </div>
+        <h3 class="text-3xl font-bold mb-4">Our Mission</h3>
+        <p class="text-lg text-gray-600">
+          To bring the power of yoga, mindfulness, and holistic wellness to everyone — regardless of age, ability, or location. We believe that transformation begins with awareness and consistency.
+        </p>
+      </div>
+      <div data-aos="fade-left">
+        <div class="bg-green-50 p-6 rounded-xl mb-6 inline-block">
+          <i class="fas fa-eye text-3xl text-green-500"></i>
+        </div>
+        <h3 class="text-3xl font-bold mb-4">Our Vision</h3>
+        <p class="text-lg text-gray-600">
+          A world where mental peace, physical health, and mindful living are accessible to all through simple, smart, and sustainable tools.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Highlights -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6 max-w-6xl">
+      <h3 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Why Choose YogaTrack?</h3>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-xl shadow-md feature-card transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-brain text-3xl text-blue-500"></i>
+          </div>
+          <h4 class="text-xl font-semibold mb-4">AI-Powered Plans</h4>
+          <p class="text-gray-600">Get intelligent routine suggestions tailored to your lifestyle, body type, flexibility, and mood.</p>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-md feature-card transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-chart-line text-3xl text-green-500"></i>
+          </div>
+          <h4 class="text-xl font-semibold mb-4">Progress Analytics</h4>
+          <p class="text-gray-600">Track your consistency, improvements, and areas that need focus — all visualized beautifully.</p>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-md feature-card transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-users text-3xl text-purple-500"></i>
+          </div>
+          <h4 class="text-xl font-semibold mb-4">Community Support</h4>
+          <p class="text-gray-600">Join a like-minded community of people working on personal growth and wellness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Extended Features -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <h3 class="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Built For Your Success</h3>
+      <div class="grid md:grid-cols-2 gap-10" data-aos="fade-up">
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Custom daily schedules & reminders</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Pose correction using visual guides</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Breathing exercises to reduce stress</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Meditation courses from certified experts</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Sleep tracking and morning routine planner</span>
+          </li>
+        </ul>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Mood & energy journal integration</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Video guides for every pose & level</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Diet & water intake tips</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Live webinars and wellness events</span>
+          </li>
+          <li class="flex items-start">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <i class="fas fa-check text-green-500 text-sm"></i>
+            </div>
+            <span class="text-gray-700">Lifetime access to premium yoga guides</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Life Impact -->
+  <section class="py-20 bg-gradient-to-br from-green-50 to-blue-50">
+    <div class="container mx-auto px-6 max-w-5xl text-center">
+      <h3 class="text-3xl font-bold mb-6" data-aos="fade-up">Real Stories. Real Results.</h3>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
+        YogaTrack has changed thousands of lives. From reducing chronic pain to improving sleep and boosting confidence, our users share powerful stories of transformation.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-xl shadow testimonial-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-md">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aarav" class="w-full h-full object-cover">
+          </div>
+          <h4 class="font-semibold text-lg mb-2">Aarav (Student)</h4>
+          <p class="text-gray-600">"My anxiety levels have dropped. I start my mornings with YogaTrack and it gives me clarity and calm."</p>
+          <div class="flex justify-center mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow testimonial-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-md">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah" class="w-full h-full object-cover">
+          </div>
+          <h4 class="font-semibold text-lg mb-2">Sarah (Working Mom)</h4>
+          <p class="text-gray-600">"I didn't have time for yoga classes. YogaTrack gave me flexibility and peace of mind from home."</p>
+          <div class="flex justify-center mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow testimonial-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-md">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Raj" class="w-full h-full object-cover">
+          </div>
+          <h4 class="font-semibold text-lg mb-2">Raj (IT Professional)</h4>
+          <p class="text-gray-600">"Back pain and stress used to ruin my day. YogaTrack routines fixed both in just weeks."</p>
+          <div class="flex justify-center mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-20 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center">
+    <div class="container mx-auto px-6" data-aos="fade-up">
+      <h2 class="text-4xl font-bold mb-6">Join YogaTrack Today</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Your journey to a healthier, mindful life begins now. Start free, grow forever.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="register.html" class="bg-white text-indigo-600 px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-all shadow-lg inline-flex items-center justify-center">
+          <i class="fas fa-play-circle mr-3 text-xl"></i> Start Your Free Trial
+        </a>
+        <a href="services.html" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white hover:bg-opacity-10 transition-all inline-flex items-center justify-center">
+          <i class="fas fa-info-circle mr-3 text-xl"></i> Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animation
+    AOS.init({
+      once: true,
+      duration: 800
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ - YogaTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-[Poppins]">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-green-500">FAQs</h1>
+      <a href="index.html" class="text-blue-500 hover:underline">← Back to Home</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="text-center py-16 bg-gradient-to-r from-green-100 to-blue-100">
+    <h2 class="text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+    <p class="text-lg text-gray-700 max-w-2xl mx-auto">Find answers to common questions about YogaTrack and wellness tips.</p>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="space-y-4">
+      <!-- 20 FAQs -->
+      <!-- Repeat this block 20 times with different questions/answers -->
+      <!-- For brevity, we list a few here — you can copy & customize further -->
+
+      <script>
+        const faqs = [
+          ["What is YogaTrack?", "YogaTrack is a platform that offers AI-personalized yoga plans, meditation tools, and wellness tracking."],
+          ["Is YogaTrack suitable for beginners?", "Yes, it includes beginner-friendly guides and routines."],
+          ["How can I join YogaTrack?", "Visit our homepage and click 'Start Your Journey' to register."],
+          ["Is there a mobile app?", "Not right now, but we are looking forward to launching one soon."],,
+          ["Can I track my flexibility progress?", "Yes! We provide analytics and pose improvement data."],
+          ["Does it support offline mode?", "The mobile app allows downloading your routine for offline access."],
+          ["Are there certified instructors?", "Yes, all our instructors are yoga-certified professionals."],
+          ["Can I reschedule sessions?", "Yes, the scheduler is flexible with reminders."],
+          ["What is included in the free trial?", "All premium features are unlocked for 7 days."],
+          ["How do I cancel a subscription?", "You can manage subscriptions from your account dashboard."],
+          ["What payment methods are accepted?", "We support cards, UPI, PayPal, and net banking."],
+          ["How does AI personalize sessions?", "It considers your flexibility, goals, and consistency."],
+          ["Are guided meditations included?", "Yes, audio-guided meditation sessions are part of all plans."],
+          ["Can I create a custom plan?", "Yes, advanced users can build routines from our pose library."],
+          ["Is it safe during pregnancy?", "Yes, prenatal yoga modules are available."],
+          ["Can I sync it with my smartwatch?", "Integration with Apple Watch and Fitbit is available."],
+          ["How do I contact support?", "Use the live chat or email us at help@yogatrack.com."],
+          ["Is my progress saved?", "Yes, it syncs to your YogaTrack account securely."],
+          ["Can I invite friends to join?", "Yes, and you’ll receive bonus features for referrals."],
+          ["What languages are supported?", "Currently English, Hindi, and Nepali are supported."]
+        ];
+      </script>
+
+      <div id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- Ask Your Own Question Box -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-bold text-green-600 mb-4">Have your own question?</h3>
+      <form id="questionForm" onsubmit="submitQuestion(event)">
+        <textarea id="userQuestion" rows="4" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none" placeholder="Ask your question here..."></textarea>
+        <button type="submit" class="mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full">Submit</button>
+      </form>
+      <p id="thankYouMessage" class="text-green-600 font-medium mt-4 hidden">Thank you! We'll get back to you soon.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-8">
+    <p>&copy; 2025 YogaTrack. All rights reserved.</p>
+  </footer>
+
+  <!-- FAQ + Form Scripts -->
+  <script>
+    function toggleFAQ(button) {
+      const answer = button.nextElementSibling;
+      const icon = button.querySelector('svg');
+      answer.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+
+    function submitQuestion(e) {
+      e.preventDefault();
+      document.getElementById("userQuestion").value = "";
+      document.getElementById("thankYouMessage").classList.remove("hidden");
+    }
+
+    // Render FAQs dynamically
+    const faqList = document.getElementById("faqList");
+    faqs.forEach(([q, a], index) => {
+      faqList.innerHTML += `
+        <div class="border border-gray-300 rounded-lg">
+          <button onclick="toggleFAQ(this)" class="w-full text-left p-4 flex justify-between items-center">
+            <span class="font-semibold text-lg text-green-600">${index + 1}. ${q}</span>
+            <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer hidden px-4 pb-4 text-gray-600">${a}</div>
+        </div>`;
+    });
+  </script>
+
+</body>
+</html>

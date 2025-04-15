@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Session | YogaTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-5xl mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">🧘 Edit Yoga & Meditation Session</h1>
+
+        <!-- Edit Session Form -->
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-xl font-semibold mb-4">Edit Session</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <input type="date" id="edit-date" class="border p-2 rounded w-full" />
+                <select id="edit-type" class="border p-2 rounded w-full">
+                    <option value="Yoga">Yoga</option>
+                    <option value="Meditation">Meditation</option>
+                </select>
+                <input type="number" id="edit-duration" placeholder="Duration (mins)" class="border p-2 rounded w-full" />
+                <input type="text" id="edit-focus" placeholder="Focus Area (e.g., Relaxation, Flexibility)" class="border p-2 rounded w-full" />
+                <textarea id="edit-notes" placeholder="Notes" class="border p-2 rounded w-full col-span-2"></textarea>
+            </div>
+            <button id="update-session" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Update Session
+            </button>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+            <a href="sessions.html" class="text-blue-500 hover:text-blue-700">Back to Sessions</a>
+        </div>
+    </div>
+
+    <script>
+        const sessionId = new URLSearchParams(window.location.search).get('id');
+        let sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+
+        function loadSessionData() {
+            const session = sessions.find(s => s.id === parseInt(sessionId));
+            if (session) {
+                document.getElementById('edit-date').value = session.date;
+                document.getElementById('edit-type').value = session.type;
+                document.getElementById('edit-duration').value = session.duration;
+                document.getElementById('edit-focus').value = session.focus;
+                document.getElementById('edit-notes').value = session.notes;
+            } else {
+                alert('Session not found!');
+            }
+        }
+
+        // Update session in localStorage
+        document.getElementById('update-session').addEventListener('click', () => {
+            const updatedSession = {
+                id: parseInt(sessionId),
+                date: document.getElementById('edit-date').value,
+                type: document.getElementById('edit-type').value,
+                duration: document.getElementById('edit-duration').value,
+                focus: document.getElementById('edit-focus').value,
+                notes: document.getElementById('edit-notes').value,
+            };
+
+            // Find and update the session
+            sessions = sessions.map(session => session.id === updatedSession.id ? updatedSession : session);
+
+            // Save to localStorage
+            localStorage.setItem('sessions', JSON.stringify(sessions));
+
+            alert('Session updated successfully!');
+            window.location.href = 'sessions.html'; // Redirect back to sessions list
+        });
+
+        // Load session data when the page is loaded
+        window.onload = loadSessionData;
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Schedule | YogaTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-5xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">📅 Daily Yoga & Meditation Schedule</h1>
+
+    <!-- Add Routine Form -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <h2 class="text-xl font-semibold mb-4">Add to Your Daily Routine</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <select id="routine-type" class="border p-2 rounded w-full">
+          <option value="">Select Type</option>
+          <option value="Yoga">Yoga</option>
+          <option value="Meditation">Meditation</option>
+        </select>
+        <input type="text" id="routine-desc" placeholder="Description (e.g. 10 min Sun Salutation)" class="border p-2 rounded w-full" />
+      </div>
+      <button id="add-routine" class="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+        ➕ Add Routine
+      </button>
+    </div>
+
+    <!-- Predefined Today's Routine -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <h2 class="text-xl font-semibold mb-4">Today's Routine (Predefined)</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-green-50 p-4 rounded-lg shadow">
+          <h3 class="font-bold text-lg mb-2">Yoga</h3>
+          <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li>15 min Sun Salutations</li>
+            <li>10 min Hip Openers</li>
+            <li>5 min Savasana</li>
+          </ul>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg shadow">
+          <h3 class="font-bold text-lg mb-2">Meditation</h3>
+          <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li>5 min Breathing Awareness</li>
+            <li>5 min Body Scan</li>
+            <li>5 min Loving-Kindness</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Added Routine List -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <h2 class="text-xl font-semibold mb-4">Your Added Routines</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-green-50 p-4 rounded-lg shadow">
+          <h3 class="font-bold text-lg mb-2">Yoga</h3>
+          <ul id="yoga-list" class="list-disc pl-5 text-gray-700 space-y-1"></ul>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg shadow">
+          <h3 class="font-bold text-lg mb-2">Meditation</h3>
+          <ul id="meditation-list" class="list-disc pl-5 text-gray-700 space-y-1"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motivational Tip -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <h3 class="text-xl font-semibold mb-4">Tip of the Day</h3>
+      <p class="text-gray-700">“Yoga is the journey of the self, through the self, to the self.” – The Bhagavad Gita</p>
+    </div>
+
+    <!-- Progress Summary -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <h2 class="text-xl font-semibold mb-4">Summary of Goals & Progress</h2>
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="font-medium">Flexibility Goal: 30 min daily</span>
+            <span class="text-gray-500">65% complete</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="bg-green-500 h-2.5 rounded-full progress-bar" style="width: 65%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="font-medium">Meditation Goal: 100 hours</span>
+            <span class="text-gray-500">42/100 hours</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="bg-blue-500 h-2.5 rounded-full progress-bar" style="width: 42%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="font-medium">Strength Goal: Master Crow Pose</span>
+            <span class="text-gray-500">Practicing</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="bg-purple-500 h-2.5 rounded-full progress-bar" style="width: 30%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <a href="dashboard.html" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const yogaList = document.getElementById("yoga-list");
+    const meditationList = document.getElementById("meditation-list");
+    const routineType = document.getElementById("routine-type");
+    const routineDesc = document.getElementById("routine-desc");
+    const addRoutineBtn = document.getElementById("add-routine");
+  
+    // Load routines from localStorage
+    function loadRoutines() {
+      const routines = JSON.parse(localStorage.getItem("dailyRoutines")) || [];
+      yogaList.innerHTML = "";
+      meditationList.innerHTML = "";
+  
+      routines.forEach(routine => {
+        const li = document.createElement("li");
+        li.textContent = routine.desc;
+  
+        // Create delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add("ml-2", "text-red-500", "hover:text-red-700");
+        deleteBtn.onclick = () => deleteRoutine(routine);
+  
+        // Create check box to mark routine as completed
+        const checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+        checkBox.classList.add("ml-2");
+        checkBox.addEventListener("change", () => {
+          if (checkBox.checked) {
+            li.classList.add("line-through");
+          } else {
+            li.classList.remove("line-through");
+          }
+        });
+  
+        li.appendChild(checkBox);
+        li.appendChild(deleteBtn);
+  
+        // Append routine to the correct list (Yoga or Meditation)
+        if (routine.type === "Yoga") {
+          yogaList.appendChild(li);
+        } else if (routine.type === "Meditation") {
+          meditationList.appendChild(li);
+        }
+      });
+    }
+  
+    // Delete a routine from localStorage
+    function deleteRoutine(routineToDelete) {
+      let routines = JSON.parse(localStorage.getItem("dailyRoutines")) || [];
+      // Filter out the routine that needs to be deleted
+      routines = routines.filter(routine => routine.desc !== routineToDelete.desc);
+      localStorage.setItem("dailyRoutines", JSON.stringify(routines));
+      loadRoutines(); // Reload the routines list after deletion
+    }
+  
+    // Add new routine to the list
+    addRoutineBtn.addEventListener("click", () => {
+      const type = routineType.value;
+      const desc = routineDesc.value.trim();
+  
+      if (!type || !desc) {
+        alert("Please select a type and enter a description.");
+        return;
+      }
+  
+      const routines = JSON.parse(localStorage.getItem("dailyRoutines")) || [];
+      routines.push({ type, desc });
+      localStorage.setItem("dailyRoutines", JSON.stringify(routines));
+  
+      routineType.value = "";
+      routineDesc.value = "";
+      loadRoutines(); // Refresh the list of routines
+    });
+  
+    // Load routines when the page loads
+    document.addEventListener("DOMContentLoaded", () => {
+      loadRoutines();
+    });
+  </script>
+  
+</body>
+</html>
