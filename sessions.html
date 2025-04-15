@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Sessions | YogaTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <nav class="flex justify-end p-4 bg-white-100">
+            <a href="dashboard.html" class="px-4 py-2 text-blue-600 hover:text-blue-800 hover:underline">Dashboard</a>
+        </nav>
+        
+        <header class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">  <i class="fas fa-spa text-3xl text-green-500"></i> Yoga<span class="text-blue-600">Track</span></h1>
+                    <p class="text-gray-600">Track your yoga and meditation journey</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium">
+                        Total Sessions: <span id="totalSessions">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Add Session Card -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Add New Session</h2>
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date" id="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+                </div>
+                <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                    <select id="type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="">Select Type</option>
+                        <option value="Yoga">Yoga</option>
+                        <option value="Meditation">Meditation</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
+                    <input type="number" id="duration" placeholder="e.g. 30" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+                </div>
+                <div>
+                    <label for="focus" class="block text-sm font-medium text-gray-700 mb-1">Focus Area</label>
+                    <input type="text" id="focus" placeholder="e.g. Relaxation, Flexibility" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+                </div>
+                <div class="md:col-span-2">
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                    <textarea id="notes" placeholder="How did you feel? What did you work on?" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"></textarea>
+                </div>
+            </div>
+            <button id="add-session" class="w-full md:w-auto px-6 py-3 bg-primary-500 text-white font-medium rounded-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-200">
+                ➕ Add Session
+            </button>
+        </div>
+
+        <!-- Sessions Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2 md:mb-0">Your Sessions</h2>
+                <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                    <div class="flex items-center">
+                        <label for="filterType" class="mr-2 text-sm font-medium text-gray-700">Filter:</label>
+                        <select id="filterType" class="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                            <option value="All">All</option>
+                            <option value="Yoga">Yoga</option>
+                            <option value="Meditation">Meditation</option>
+                        </select>
+                    </div>
+                    <div id="totalDuration" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                        Total Duration: <span class="font-semibold">0</span> mins
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sessions Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Focus</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionList" class="bg-white divide-y divide-gray-200">
+                        <!-- Session Rows Here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="p-12 text-center hidden">
+                <div class="mx-auto w-24 h-24 mb-4 text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-1">No sessions yet</h3>
+                <p class="text-gray-500 max-w-md mx-auto">Add your first yoga or meditation session to begin tracking your practice.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sessionList = document.getElementById('sessionList');
+        const totalDuration = document.getElementById('totalDuration');
+        const totalSessions = document.getElementById('totalSessions');
+        const emptyState = document.getElementById('emptyState');
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function loadSessions() {
+            const filter = document.getElementById('filterType').value;
+            const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+            sessionList.innerHTML = '';
+            let total = 0;
+            let filteredCount = 0;
+
+            sessions.forEach(session => {
+                if (filter === 'All' || session.type === filter) {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50 transition-colors';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${formatDate(session.date)}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${session.type === 'Yoga' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'}">
+                                ${session.type}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900 font-medium">${session.duration} mins</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">${session.focus || '-'}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-500 max-w-xs truncate">${session.notes || '-'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="edit-sessions.html?id=${session.id}" class="text-primary-600 hover:text-primary-900 mr-3">Edit</a>
+                            <button onclick="deleteSession(${session.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    `;
+                    sessionList.appendChild(row);
+                    total += parseInt(session.duration);
+                    filteredCount++;
+                }
+            });
+
+            totalDuration.innerHTML = `Total Duration: <span class="font-semibold">${total}</span> mins`;
+            totalSessions.textContent = sessions.length;
+            
+            // Show empty state if no sessions
+            if (filteredCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        function deleteSession(id) {
+            if (confirm('Are you sure you want to delete this session?')) {
+                const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+                const updatedSessions = sessions.filter(session => session.id !== id);
+                localStorage.setItem('sessions', JSON.stringify(updatedSessions));
+                loadSessions();
+            }
+        }
+
+        document.getElementById('add-session').addEventListener('click', () => {
+            const newSession = {
+                id: new Date().getTime(),  // Unique ID based on time
+                date: document.getElementById('date').value,
+                type: document.getElementById('type').value,
+                duration: document.getElementById('duration').value,
+                focus: document.getElementById('focus').value,
+                notes: document.getElementById('notes').value,
+            };
+
+            if (!newSession.date || !newSession.type || !newSession.duration) {
+                alert('Please fill in all required fields: Date, Type, and Duration.');
+                return;
+            }
+
+            const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+            sessions.push(newSession);
+            localStorage.setItem('sessions', JSON.stringify(sessions));
+
+            // Clear form
+            document.getElementById('date').value = '';
+            document.getElementById('type').value = '';
+            document.getElementById('duration').value = '';
+            document.getElementById('focus').value = '';
+            document.getElementById('notes').value = '';
+
+            loadSessions();
+            
+            // Scroll to sessions list
+            document.querySelector('#sessionList').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        document.getElementById('filterType').addEventListener('change', loadSessions);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+            
+            loadSessions();
+        });
+    </script>
+</body>
+</html>
